@@ -1,5 +1,6 @@
 import { useState } from "react"
 import axios from 'axios'
+import style from './DicePage.module.scss'
 
 export default function DicePage() {
     const [resList, setResList] = useState([])
@@ -49,15 +50,20 @@ export default function DicePage() {
     }
 
     const diceElement = dice.map((item, i) => (
-        <div key={i}>
-            <button onClick={() => getData(1, item, 'solo')}>{`d${item}`}</button>
+        <div className={style.dice} key={i}>
+            <button className={style.button} onClick={() => getData(1, item, 'solo')}>{`d${item}`}</button>
         </div>
     ))
+    const diceParentElement = diceElement && (
+        <div className={style.diceContainer}>
+            {diceElement}
+        </div>
+    )
 
     const customDiceElement = customDice.map((item, i) => (
-        <div key={i}>
-            <button onClick={() => getData(1, item, 'solo')}>{`d${item}`}</button>
-            <button onClick={() => onRemoveCustom(i)}>-</button>
+        <div className={style.dice} key={i}>
+            <button className={style.button} onClick={() => getData(1, item, 'solo')}>{`d${item}`}</button>
+            <button className={style.button} onClick={() => onRemoveCustom(i)}>-</button>
         </div>
     ))
     const onRemoveCustom = (i) => {
@@ -90,6 +96,7 @@ export default function DicePage() {
     const addCustomDiceElement = (
         <div>
             <input
+                className={style.input}
                 type="number"
                 name="custom"
                 id="custom"
@@ -99,6 +106,7 @@ export default function DicePage() {
                 onChange={onCustom}
             />
             <input
+                className={style.button}
                 type="button"
                 name="add"
                 id="add"
@@ -107,12 +115,23 @@ export default function DicePage() {
             />
         </div>
     )
+    const customDiceParentElement = addCustomDiceElement && (
+        <div className={style.diceContainer}>
+            {customDiceElement}
+            {addCustomDiceElement}
+        </div>
+    )
 
     const doubleDiceElement = doubleDice.map((item, i) => (
-        <div key={i}>
-            <button onClick={() => getData(2, item, 'double')}>{`2d${item}`}</button>
+        <div className={style.dice} key={i}>
+            <button className={style.button} onClick={() => getData(2, item, 'double')}>{`2d${item}`}</button>
         </div>
     ))
+    const doubleDiceParentElement = doubleDiceElement && (
+        <div className={style.diceContainer}>
+            {doubleDiceElement}
+        </div>
+    )
 
     const [multi, setMulti] = useState(2)
     const onMulti = (e) => {
@@ -125,6 +144,7 @@ export default function DicePage() {
     const multiNumElement = (
         <div>
             <input
+                className={style.input}
                 type="number"
                 name="multi"
                 id="multi"
@@ -136,29 +156,35 @@ export default function DicePage() {
         </div>
     )
     const multiDiceElement = multiDice.map((item, i) => (
-        <div key={i}>
-            <button onClick={() => getData(multi, item, 'multi')}>{`${multi}d${item}`}</button>
+        <div className={style.dice} key={i}>
+            <button className={style.button} onClick={() => getData(multi, item, 'multi')}>{`${multi}d${item}`}</button>
         </div>
     ))
+    const multiDiceParentElement = multiDiceElement && (
+        <div className={style.diceContainer}>
+            {multiNumElement}
+            {multiDiceElement}
+        </div>
+    )
 
     const resultListElement = resList.toReversed().map(({ data, num, max }, i) => (
-        <div key={i}>{`[${num}d${max}]: ${data}`}</div>
+        <div className={style.res} key={i}>{`[${num}d${max}]: ${data}`}</div>
     ))
     const resultElement = resultListElement && (
-        <div>
+        <div className={style.resContainer}>
             {resultListElement}
         </div>
     )
 
     return (
         <div>
-            {diceElement}
-            {customDiceElement}
-            {addCustomDiceElement}
-            {doubleDiceElement}
+            {diceParentElement}
 
-            {multiNumElement}
-            {multiDiceElement}
+            {customDiceParentElement}
+
+            {doubleDiceParentElement}
+
+            {multiDiceParentElement}
 
             {resultElement}
         </div>

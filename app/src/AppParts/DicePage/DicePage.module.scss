@@ -1,0 +1,26 @@
+$text: 30px;
+
+.diceContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+    .dice {
+    }
+    .button {
+       
+        font-size: $text;
+        font-weight: bold;
+
+    }
+    .input {
+        font-size: $text;
+        font-weight: bold;
+    }
+}
+
+.resContainer {
+    color: blue;
+    .res {
+    }
+}

@@ -38,6 +38,10 @@ export default function DicePage() {
     }
 
     const getData = async (num, max, format) => {
+        // num = Math.trunc(num)
+        // max = Math.trunc(max)
+        // if (format === 'multi' && num < 2) { num = 2; setMulti(num) }
+
         // https://www.random.org/integers/?num=${num}&min=1&max=${max}&col=1&base=10&format=plain&rnd=new
         const { data } = await axios(`https://www.random.org/integers/?num=${num}&min=1&max=${max}&col=1&base=10&format=plain&rnd=new`)
         if (data) {
@@ -73,46 +77,39 @@ export default function DicePage() {
             newb[newb.length - 1] = newb[i]
             newb[i] = temp
             newb.pop()
-            console.log(newb)
             return newb
         })
     }
 
     const [custom, setCustom] = useState(2)
-    const onAddCustom = () => {
+    const onAddCustom = (e) => {
+        e.preventDefault()
         setCustomDice(prev => {
             let newb = [...prev]
-            newb.push(Number(custom))
+            newb.push(custom)
             return newb
         })
     }
-    const onCustom = (e) => {
-        let num = e.target.value
-        if (num > 999) num = 999
-        else if (num < 1) num = 1
-        setCustom(num)
-
-    }
     const addCustomDiceElement = (
         <div>
-            <input
-                className={style.input}
-                type="number"
-                name="custom"
-                id="custom"
-                max={999}
-                min={2}
-                value={custom}
-                onChange={onCustom}
-            />
-            <input
-                className={style.button}
-                type="button"
-                name="add"
-                id="add"
-                value={'+'}
-                onClick={onAddCustom}
-            />
+            <form onSubmit={onAddCustom}>
+                <input
+                    className={style.input}
+                    type="number"
+                    name="custom"
+                    id="custom"
+                    max={999}
+                    min={2}
+                    required
+                    value={custom}
+                    onChange={(e) => setCustom(e.target.value)}
+                />
+                <input
+                    className={style.button}
+                    type="submit"
+                    value={'+'}
+                />
+            </form>
         </div>
     )
     const customDiceParentElement = addCustomDiceElement && (
@@ -134,25 +131,32 @@ export default function DicePage() {
     )
 
     const [multi, setMulti] = useState(2)
+    const [num, setNum] = useState(2)
     const onMulti = (e) => {
-        let num = e.target.value
-        if (num > 999) num = 999
-        else if (num < 1) num = 1
+        e.preventDefault()
         setMulti(num)
-
     }
     const multiNumElement = (
         <div>
-            <input
-                className={style.input}
-                type="number"
-                name="multi"
-                id="multi"
-                max={999}
-                min={2}
-                value={multi}
-                onChange={onMulti}
-            />
+            <form onSubmit={onMulti}>
+
+                <input
+                    className={style.input}
+                    type="number"
+                    name="multi"
+                    id="multi"
+                    max={999}
+                    min={2}
+                    required
+                    value={num}
+                    onChange={(e) => setNum(e.target.value)}
+                />
+                <input
+                    className={style.button}
+                    type="submit"
+                    value={'V'}
+                />
+            </form>
         </div>
     )
     const multiDiceElement = multiDice.map((item, i) => (
@@ -177,16 +181,19 @@ export default function DicePage() {
     )
 
     return (
-        <div>
-            {diceParentElement}
+        <div className={style.pageContainer}>
+            <div className={style.container}>
+                {diceParentElement}
 
-            {customDiceParentElement}
+                {customDiceParentElement}
 
-            {doubleDiceParentElement}
+                {doubleDiceParentElement}
 
-            {multiDiceParentElement}
-
-            {resultElement}
+                {multiDiceParentElement}
+            </div>
+            <div>
+                {resultElement}
+            </div>
         </div>
     )
 }

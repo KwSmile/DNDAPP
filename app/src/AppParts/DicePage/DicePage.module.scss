@@ -1,26 +1,36 @@
 $text: 30px;
-
-.diceContainer {
+.pageContainer {
     display: flex;
-    flex-direction: column;
-    gap: 5px;
+    flex-direction: row;
+    margin: 5px 0;
+    .container {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
 
-    .dice {
-    }
-    .button {
-       
-        font-size: $text;
-        font-weight: bold;
+        .diceContainer {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
 
-    }
-    .input {
-        font-size: $text;
-        font-weight: bold;
-    }
-}
+            .dice {
+            }
+            .button {
+                font-size: $text;
+                font-weight: bold;
+                margin-left: 5px;
+            }
+            .input {
+                font-size: $text;
+                font-weight: bold;
+                margin-left: 5px;
+            }
+        }
 
-.resContainer {
-    color: blue;
-    .res {
+        .resContainer {
+            color: blue;
+            .res {
+            }
+        }
     }
 }

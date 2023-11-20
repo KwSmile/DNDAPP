@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/DNDAPP/static/css/main.6ea0d682.css",
+    "main.js": "/DNDAPP/static/js/main.8db24914.js",
+    "index.html": "/DNDAPP/index.html",
+    "main.6ea0d682.css.map": "/DNDAPP/static/css/main.6ea0d682.css.map",
+    "main.8db24914.js.map": "/DNDAPP/static/js/main.8db24914.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.6ea0d682.css",
+    "static/js/main.8db24914.js"
+  ]
+}

@@ -38,10 +38,6 @@ export default function DicePage() {
     }
 
     const getData = async (num, max, format) => {
-        // num = Math.trunc(num)
-        // max = Math.trunc(max)
-        // if (format === 'multi' && num < 2) { num = 2; setMulti(num) }
-
         // https://www.random.org/integers/?num=${num}&min=1&max=${max}&col=1&base=10&format=plain&rnd=new
         const { data } = await axios(`https://www.random.org/integers/?num=${num}&min=1&max=${max}&col=1&base=10&format=plain&rnd=new`)
         if (data) {
@@ -54,7 +50,7 @@ export default function DicePage() {
     }
 
     const diceElement = dice.map((item, i) => (
-        <div className={style.dice} key={i}>
+        <div key={i}>
             <button className={style.button} onClick={() => getData(1, item, 'solo')}>{`d${item}`}</button>
         </div>
     ))
@@ -65,7 +61,7 @@ export default function DicePage() {
     )
 
     const customDiceElement = customDice.map((item, i) => (
-        <div className={style.dice} key={i}>
+        <div key={i}>
             <button className={style.button} onClick={() => getData(1, item, 'solo')}>{`d${item}`}</button>
             <button className={style.button} onClick={() => onRemoveCustom(i)}>-</button>
         </div>
@@ -120,7 +116,7 @@ export default function DicePage() {
     )
 
     const doubleDiceElement = doubleDice.map((item, i) => (
-        <div className={style.dice} key={i}>
+        <div key={i}>
             <button className={style.button} onClick={() => getData(2, item, 'double')}>{`2d${item}`}</button>
         </div>
     ))
@@ -160,7 +156,7 @@ export default function DicePage() {
         </div>
     )
     const multiDiceElement = multiDice.map((item, i) => (
-        <div className={style.dice} key={i}>
+        <div key={i}>
             <button className={style.button} onClick={() => getData(multi, item, 'multi')}>{`${multi}d${item}`}</button>
         </div>
     ))
@@ -191,7 +187,7 @@ export default function DicePage() {
 
                 {multiDiceParentElement}
             </div>
-            <div>
+            <div className={style.resContainer}>
                 {resultElement}
             </div>
         </div>
